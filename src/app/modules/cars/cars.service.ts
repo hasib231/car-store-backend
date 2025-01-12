@@ -30,16 +30,24 @@ const getSingleCar = async (id: string) => {
     return result;
 }
 
+// This function is used to update a car in the database
 const updateCar = async (id: string, data: TCars) => {
     const result = await Cars.findByIdAndUpdate(id, data, {
         new: true,
     })
     return result;
- }
+}
+ 
+// This function is used to delete a car in the database
+const deleteCar = async (id: string) => { 
+    const result = await Cars.findByIdAndDelete(id);
+    return result;
+}
 
 export const carService = {
     createCar,
     getCars,
     getSingleCar,
     updateCar,
+    deleteCar,
 }
