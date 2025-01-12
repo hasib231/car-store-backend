@@ -39,7 +39,28 @@ const getCars = async (req: Request, res: Response) => {
         });
     }
 }
+
+//This function is used to get a single car from the database
+const getSingleCar = async (req: Request, res: Response) => { 
+    try {
+        const carId = req.params.carId;
+        const result = await carService.getSingleCar(carId);
+        res.status(200).json({
+            message: 'Car retrieved successfully',
+            status: true,
+            data: result
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            message: err.message || 'something went wrong',
+            success: false,
+            error: err,
+            stack: err.stack
+        });
+    }
+}
 export const CarsController = {
     createCar,
     getCars,
+    getSingleCar,
 }

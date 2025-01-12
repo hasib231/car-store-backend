@@ -24,7 +24,14 @@ const getCars = async (searchTerm?: string) => {
     return result;
 }
 
+// This function is used to get a single car from the database
+const getSingleCar = async (id: string) => { 
+    const result = await Cars.findById(id);
+    return result;
+}
+
 export const carService = {
     createCar,
     getCars,
+    getSingleCar,
 }
