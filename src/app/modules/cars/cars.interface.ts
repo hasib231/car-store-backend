@@ -1,3 +1,4 @@
+// Definition of the interface for the cars module
 export type TCars = {
     brand: string;
     model: string;

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { TCars } from './cars.interface';
 
+// This is the schema used to create a car in the database
 const carsSchema = new Schema<TCars>({
     brand: {
         type: String,
