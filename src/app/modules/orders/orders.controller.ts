@@ -40,6 +40,39 @@ const createOrder = async (req: Request, res: Response) => {
     }
 }
 
+// This function is used to calculate the total revenue from all orders
+const calculateRevenue = async (req: Request, res: Response) => {
+    try {
+        const totalRevenue = await orderService.calculateRevenue();
+        res.status(200).json({
+            message: "Revenue calculated successfully",
+            status: true,
+            data: {
+                totalRevenue
+            }
+        });
+    } catch (err: any) {
+        if (err.message === 'Order not found') {
+            res.status(404).json({
+                message: 'Order not found',
+                success: false,
+                error: err,
+                stack: err.stack
+            });
+        }
+        else {
+            res.status(500).json({
+                message: err.message || 'something went wrong',
+                success: false,
+                error: err,
+                stack: err.stack
+        
+            });
+        }
+    }
+};
+
 export const OrderController = {
     createOrder,
+    calculateRevenue
 }

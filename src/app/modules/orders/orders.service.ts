@@ -31,6 +31,34 @@ const createOrder = async (order: TOrders) => {
     return result;
 }
 
+// This function is used to calculate the total revenue from all orders
+const calculateRevenue = async () => {
+    const result = await Orders.aggregate([
+        {
+    // Step 1: Calculate revenue for each order
+    $project: {
+      revenue: {
+        $multiply: ["$quantity", "$totalPrice"]
+      }
+    }
+  },
+  {
+    // Step 2: Sum all the revenues to get total revenue
+    $group: {
+      _id: null, // No grouping key needed, sum across all documents
+      totalRevenue: { $sum: "$revenue" }
+    }
+  }
+    ]);
+    
+    if (result.length === 0) {
+        throw new Error("Order not found");
+    }
+    
+    return result.length > 0 ? result[0].totalRevenue : 0;
+}
+
 export const orderService = {
     createOrder,
+    calculateRevenue
 }

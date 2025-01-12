@@ -25,6 +25,9 @@ const getCars = async (req: Request, res: Response) => {
     try {
         const searchTerm = req.query.searchTerm as string;
         const result = await carService.getCars(searchTerm);
+        if (!result) {
+            return res.status(404).json({ message: 'Car not found' });
+        }
         res.status(200).json({
             message: 'Cars retrieved successfully',
             status: true,
@@ -49,9 +52,9 @@ const getSingleCar = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Car not found' });
         }
         res.status(200).json({
-            message: 'Car retrieved successfully',
-            status: true,
-            data: result
+        message: 'Car retrieved successfully',
+        status: true,
+        data: result
         });
     } catch (err: any) {
         res.status(500).json({
