@@ -9,4 +9,6 @@ carRouter.get('/', CarsController.getCars)
 
 carRouter.get('/:carId', CarsController.getSingleCar)
 
+carRouter.put('/:carId', CarsController.updateCar)
+
 export default carRouter

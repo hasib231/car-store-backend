@@ -30,8 +30,16 @@ const getSingleCar = async (id: string) => {
     return result;
 }
 
+const updateCar = async (id: string, data: TCars) => {
+    const result = await Cars.findByIdAndUpdate(id, data, {
+        new: true,
+    })
+    return result;
+ }
+
 export const carService = {
     createCar,
     getCars,
     getSingleCar,
+    updateCar,
 }
